@@ -103,3 +103,6 @@ go.work
 vendor/
 
 .idea/
+
+.logs/*.log
+.runtime/*.log
