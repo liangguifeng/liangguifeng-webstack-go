@@ -24,13 +24,13 @@
     addr = "127.0.0.1:3306"
     name = "webstack-go"
     pass = "root"
-    user = "root"
+    user = "9fc81642102bf60d"
 
   [mysql.write]
     addr = "127.0.0.1:3306"
     name = "webstack-go"
     pass = "root"
-    user = "root"
+    user = "9fc81642102bf60d"
 
 [redis]
   addr = "127.0.0.1:6379"

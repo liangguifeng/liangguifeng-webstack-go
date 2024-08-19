@@ -2,3 +2,5 @@
 {"level":"info","time":"2024-08-19 13:56:39","caller":"cron/cron_start.go:43","msg":"后台任务初始化完成，总数量：0","domain":"go-gin-api[fat]"}
 {"level":"info","time":"2024-08-19 14:06:50","caller":"cron/cron_start.go:24","msg":"开始初始化后台任务","domain":"go-gin-api[pro]"}
 {"level":"info","time":"2024-08-19 14:06:50","caller":"cron/cron_start.go:43","msg":"后台任务初始化完成，总数量：0","domain":"go-gin-api[pro]"}
+{"level":"info","time":"2024-08-19 15:43:29","caller":"cron/cron_start.go:24","msg":"开始初始化后台任务","domain":"go-gin-api[pro]"}
+{"level":"info","time":"2024-08-19 15:43:29","caller":"cron/cron_start.go:43","msg":"后台任务初始化完成，总数量：0","domain":"go-gin-api[pro]"}
