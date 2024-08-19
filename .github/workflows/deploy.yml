@@ -60,6 +60,6 @@ jobs:
           script: |
             cd /var/www/go/src/github.com/liangguifeng/webstack-go
             chmod +x webstack-prod-tmp
-            sudo supervisorctl stop webstack-prod
+            supervisorctl stop webstack-prod
             mv webstack-prod-tmp webstack-prod
-            sudo supervisorctl start webstack-prod
+            supervisorctl start webstack-prod
