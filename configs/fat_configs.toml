@@ -23,13 +23,13 @@
   [mysql.read]
     addr = "127.0.0.1:3306"
     name = "webstack-go"
-    pass = "123456"
+    pass = "root"
     user = "root"
 
   [mysql.write]
     addr = "127.0.0.1:3306"
     name = "webstack-go"
-    pass = "123456"
+    pass = "root"
     user = "root"
 
 [redis]
@@ -37,5 +37,5 @@
   db = "0"
   maxretries = 3
   minidleconns = 5
-  pass = "123456"
+  pass = ""
   poolsize = 10

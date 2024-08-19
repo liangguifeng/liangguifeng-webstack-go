@@ -5,7 +5,6 @@ go 1.20
 require (
 	github.com/99designs/gqlgen v0.17.49
 	github.com/dave/dst v0.26.2
-	github.com/duke-git/lancet/v2 v2.3.1
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/gin-contrib/pprof v1.3.0
 	github.com/gin-gonic/gin v1.9.1
