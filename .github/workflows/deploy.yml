@@ -36,7 +36,7 @@ jobs:
 
       # 第五步骤，同步到服务器
       - name: Deploy to Server
-        uses: AEnterprise/rsync-deploy@v1.0
+        uses: AEnterprise/rsync-deploy@v1.0.2
         env:
           DEPLOY_KEY: ${{ secrets.SERVER_KEY }}
           # exclude排除某些文件
