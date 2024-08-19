@@ -38,14 +38,14 @@ jobs:
       - name: Deploy to Server
         uses: AEnterprise/rsync-deploy@v1.0.2
         env:
+          SERVER_IP: ${{ secrets.SERVER_HOST }}
+          USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
           DEPLOY_KEY: ${{ secrets.SERVER_KEY }}
           # exclude排除某些文件
           ARGS: -avz --no-owner --no-group --no-perms --progress --exclude='/vendor' --exclude='/internal' --delete
-          SERVER_PORT: ${{ secrets.SERVER_PORT }}
           # 要推送的文件夹，路径相对于代码仓库的根目录
           FOLDER: ./
-          SERVER_IP: ${{ secrets.SERVER_HOST }}
-          USERNAME: ${{ secrets.SERVER_USERNAME }}
           SERVER_DESTINATION: /var/www/go/src/github.com/liangguifeng/webstack-go
 
       # 第六步，登录服务器，执行相关脚本
@@ -54,6 +54,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
+          port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.SERVER_KEY }}
           # 需要在同步完成代码后执行的脚本
           script: |
