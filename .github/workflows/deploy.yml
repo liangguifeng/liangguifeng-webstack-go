@@ -1,0 +1,64 @@
+name: webstack-prod
+
+# 触发机制
+on:
+  # 推送时触发
+  push:
+    branches: [ "master" ]
+  # 合并请求时触发
+  pull_request:
+    branches: [ "master" ]
+
+# 任务
+jobs:
+  # 构建任务
+  build:
+    # 使用ubuntu系统镜像运行自动化脚本
+    runs-on: ubuntu-latest
+    # 自动化步骤
+    steps:
+      # 第一步，下载代码仓库
+      - uses: actions/checkout@v3
+
+      # 第二步骤，初始化go环境
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.22
+
+      # 第三步骤，安装依赖
+      - name: Go Mod
+        run: go mod tidy && go mod vendor
+
+      # 第四步骤，go打包
+      - name: Go Build
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o webstack-prod-tmp
+
+      # 第五步骤，同步到服务器
+      - name: Deploy to Server
+        uses: AEnterprise/rsync-deploy@v1.0
+        env:
+          DEPLOY_KEY: ${{ secrets.SERVER_KEY }}
+          # exclude排除某些文件
+          ARGS: -avz --no-owner --no-group --no-perms --progress --exclude='/vendor' --exclude='/internal' --delete
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          # 要推送的文件夹，路径相对于代码仓库的根目录
+          FOLDER: ./
+          SERVER_IP: ${{ secrets.SERVER_HOST }}
+          USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_DESTINATION: /var/www/go/src/github.com/liangguifeng/webstack-go
+
+      # 第六步，登录服务器，执行相关脚本
+      - name: Execute Script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_KEY }}
+          # 需要在同步完成代码后执行的脚本
+          script: |
+            cd /var/www/go/src/github.com/liangguifeng/webstack-go
+            chmod +x webstack-prod-tmp
+            sudo supervisorctl stop webstack-prod
+            mv webstack-prod-tmp webstack-prod
+            sudo supervisorctl start webstack-prod
